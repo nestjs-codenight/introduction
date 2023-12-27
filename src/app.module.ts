@@ -9,9 +9,17 @@ import {UserModule} from "./user/user.module";
 import {LoggerMiddleware} from "./middleware/logger.middleware";
 import {UserController} from "./user/user.controller";
 import {LoggerFunction} from "./middleware/logger";
+import {APP_INTERCEPTOR} from "@nestjs/core";
+import {TransformerInterceptor} from "./interceptor/Transformer.interceptor";
 
 @Module({
   imports: [UserModule],
+  providers: [
+    {
+      provide: APP_INTERCEPTOR,
+      useClass: TransformerInterceptor
+    }
+  ],
   controllers: [AppController],
 })
 export class AppModule implements NestModule {
